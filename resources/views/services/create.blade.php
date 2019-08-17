@@ -50,7 +50,7 @@
                   <label class="">Description</label>
               </div>
                   <div class="col-sm-6">
-                      <textarea name="description" rows="3"  class="form-control" required></textarea>
+                      <textarea name="description" rows="1"  class="form-control" required></textarea>
                   </div>
             </div>
 
@@ -59,7 +59,7 @@
                   <label class="">Grand Total</label>
               </div>
                   <div class="col-sm-6">
-                      <textarea name="grandtotal" id="grandtotal" value="0" rows="1"  class="form-control" required></textarea>
+                      <input type="number" name="grandtotal" id="grandtotal" value="0" class="form-control" required>
                   </div>
             </div>
 
@@ -68,7 +68,7 @@
                   <label class="">Payment</label>
               </div>  
               <div class="col-sm-4">
-                     <input name="payment" id="payments" rows="1"  value="0" onchange="change();" class="form-control" required>
+                     <input type="number" name="payment" id="payments" value="0"  class="form-control" required>
                   </div>
               </div>
           
@@ -77,7 +77,7 @@
                     <label class="">Change</label>
                 </div>
                 <div class="col-sm-4">
-                       <textarea name="change" rows="1" value="0"  class="form-control" required></textarea>
+                       <input type="number" name="change" id="change" value="0"  onkeyup="change()" class="form-control" required>
                 </div>
             </div>
             
@@ -99,7 +99,7 @@
                         </td>
                         <td  style="border: 1px solid #d2d6de !important; ">
                           <small><strong>Sparepart</strong></small>
-                            <select class="form-control select1" id="idspareparts[]" name="idspareparts_1" onchange="passing_price(1,this.value);">
+                            <select class="form-control select1" name="idspareparts[]" id="idspareparts_1" onchange="passing_price(1,this.value);">
                               <option>--select sparepart--</option>
                               @php
                                   $param = [];
@@ -135,7 +135,8 @@
         <div class="form-group">
             <label class="col-sm-1 control-label"></label>
               <div class="col-sm-8">
-                   <input type="submit" value="Save" class="btn btn-success" >
+                   <input type="button" class="btn btn-primary" onclick="count()">
+                   <input type="submit" value="Save" class="btn btn-success" id="btn_save" disabled>
               </div>
         </div>
 
@@ -166,7 +167,7 @@ $('#addRow').on('click',function(){
           +'</td style="border: 1px solid #d2d6de !important; ">'
           +'<td style="border: 1px solid #d2d6de !important; ">'
                +'<small><strong>Spareparts</strong></small>'
-               +'<select class="form-control select1" onchange="passing_price('+ais+',this.value)" id="idspareparts[]" name="idspareparts_'+ais+'"> <option>--select spareparts--</option>'+idspareparts+
+               +'<select class="form-control select1" onchange="passing_price('+ais+',this.value)" name="idspareparts[]" id="idspareparts_'+ais+'"> <option>--select spareparts--</option>'+idspareparts+
                + '</select>'
           +'</td>'
           +'<td style="border: 1px solid #d2d6de !important; ">'
@@ -179,7 +180,7 @@ $('#addRow').on('click',function(){
           +'</td>'
           +'<td style="border: 1px solid #d2d6de !important; ">'
                +'<small><strong>Grand Total</strong></small>'
-               +'<input class="form-control" name="totalharga[]" id="totalharga_'+ais+'" onkeyup="grandtotal('+ais+') ">'
+               +'<input type="number" name="totalharga[]" id="totalharga_'+ais+'" onkeyup="total('+ais+') ">'
           +'</td>'
           +'</tr>'  
           
@@ -212,6 +213,7 @@ function count_value(id){
 function total(){
       var count_all = 0;
       var grandtotal = $('#appendindex').val();
+      var payment = $('#payments').val();
 
       setTimeout(function(){
         for (var i = 1; i < grandtotal; i++) {
@@ -220,21 +222,29 @@ function total(){
             count_all += parseInt(totalharga);
           }
           $('#grandtotal').val(count_all);
+          change();
+
         }
       },500);
-      change();
+
 }
 
 function change(){
   var payment = $('#payments').val();
   var grandtotal = $('#grandtotal').val();
+  
   setTimeout(function(){
-    var change = parseInt(payments) - parseInt(grandtotal);
-    if (change > 0){
-      $('#change_'+id).val(change); 
-    } 
-  }, 500);
+  
+    var change = parseInt(payment) - parseInt(grandtotal);
+    $('#change').val(change); 
+    }, 500);
 }
 
+function count(){
+  change();
+
+  $('#btn_save').prop('disabled',false);
+
+}
 
 </script>
