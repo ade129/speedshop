@@ -15,10 +15,6 @@ class Services extends Model
     protected $table = 'services';
     protected $primaryKey = 'idservices';
 
-    protected $fillable = [
-        'idusers','code','dateservices','description'
-    ];
-
     public function services_details()
     {
         return $this->hasMany('App\Models\ServicesDetails','idservicesdetails');

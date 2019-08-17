@@ -15,11 +15,14 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments('idservices');
-            $table->integer('idusers');
             $table->string('code');
             $table->date('date_services');
             $table->text('description');
-            $table->string('grandtotal');
+            $table->string('payments');//harga total yang akan tampil di costumer
+            $table->string('changes');//kembalian 
+            $table->string('grandtotal');// total semua harga service
+            // $table->integer('unit'); // quantity
+            // $table->string('totalharga'); // total harga dari jumlah quantity (otomatis)
             $table->softDeletes();
             $table->timestamps();
         });//database header service

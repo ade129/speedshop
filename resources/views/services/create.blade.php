@@ -122,7 +122,7 @@
                         </td>
                       </td>
                       <td  style="border: 1px solid #d2d6de !important; ">
-                        <small><strong>Grand Total</strong></small>
+                        <small><strong>Total</strong></small>
                         <input type="number" name="totalharga[]" class="form-control"  id="totalharga_1" value="0" onkeyup="total(1)">
                       </td>
                       </tr>
