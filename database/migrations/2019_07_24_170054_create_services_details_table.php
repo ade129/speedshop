@@ -15,12 +15,6 @@ class CreateServicesDetailsTable extends Migration
     {
         Schema::create('services_details', function (Blueprint $table) {
             $table->increments('idservicesdetails');
-            // $table->string('code');
-            // $table->date('date_services');
-            // $table->text('description');
-            // $table->string('payments');//harga total yang akan tampil di costumer
-            // $table->string('changes');//kembalian 
-            // $table->string('grandtotal');// total semua harga service
             $table->integer('idspareparts'); // sparepart
             $table->integer('idservices');
             $table->integer('unit'); // quantity

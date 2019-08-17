@@ -21,8 +21,6 @@ class CreateServicesTable extends Migration
             $table->string('payments');//harga total yang akan tampil di costumer
             $table->string('changes');//kembalian 
             $table->string('grandtotal');// total semua harga service
-            // $table->integer('unit'); // quantity
-            // $table->string('totalharga'); // total harga dari jumlah quantity (otomatis)
             $table->softDeletes();
             $table->timestamps();
         });//database header service
