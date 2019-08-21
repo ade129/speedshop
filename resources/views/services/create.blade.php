@@ -135,7 +135,7 @@
         <div class="form-group">
             <label class="col-sm-1 control-label"></label>
               <div class="col-sm-8">
-                   <input type="button" class="btn btn-primary" onclick="count()">
+                   <input type="button" value="Count" class="btn btn-primary" onclick="count()">
                    <input type="submit" value="Save" class="btn btn-success" id="btn_save" disabled>
               </div>
         </div>

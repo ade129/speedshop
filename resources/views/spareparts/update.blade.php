@@ -46,7 +46,7 @@
           <div class="form-group">
               <label class="col-sm-2 control-label">Code Sparepart</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" value="{{$spareparts->codespareparts}}" name="codespareparts" required>
+                <input type="number" class="form-control" value="{{$spareparts->codespareparts}}" name="codespareparts" required>
               </div>
           </div>
 
@@ -58,30 +58,30 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Harga</label>
+            <label class="col-sm-2 control-label">Harga Jual</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" value="{{$spareparts->price}}" name="price" required>
+              <input type="number" class="form-control" value="{{$spareparts->price}}" name="price" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Harga Dasar</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" value="{{$spareparts->actcost}}" name="actcost" required>
+              <input type="number" class="form-control" value="{{$spareparts->actcost}}" name="actcost" required>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Keuntungan</label>
             <div class="col-sm-8">
-            <input type="text" class="form-control" value="{{$spareparts->forecast}}" name="forecast" required>
+            <input type="number" class="form-control" value="{{$spareparts->forecast}}" name="forecast" required>
             </div>
           </div>
 
           <div class="form-group">
               <label class="col-sm-2 control-label">Unit</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" value="{{$spareparts->unit}}" name="unit" required>
+                <input type="number" class="form-control" value="{{$spareparts->unit}}" name="unit" required>
               </div>
           </div>
 

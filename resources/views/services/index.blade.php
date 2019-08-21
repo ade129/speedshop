@@ -21,16 +21,33 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
           <tr>
+            <th>No</th>
             <th>Code</th>
             <th>Date Service</th>
             <th>Description</th>
-            <th>Progress By</th>
-            <th>Done By</th>
-            <th>Status</th>
+            <th>Payment</th>
+            <th>Change</th>
+            <th>Grand Total</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
+            @foreach ($services as $number => $service)
+            <tr>
+                <td>{{$number+1}}</td>
+                <td>{{$service->code}}</td>
+                <td>{{date('d M Y', strtotime($service->date_services))}}</td>
+                <td>{{$service->description}}</td>
+                <td>{{$service->payments}}</td>
+                <td>{{$service->changes}}</td>
+                <td>{{$service->grandtotal}}</td>
+                <td>
+                    <center>
+                        <a href="{{url('/services/update/'.$service->idservices)}}"><i class="fa fa-pencil-square-o"></i></a>
+                    </center>
+                </td>
+            </tr>    
+            @endforeach
           </tbody>
         </table>
       </div>    

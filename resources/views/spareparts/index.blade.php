@@ -25,7 +25,7 @@
                     <th>Categories</th>
                     <th>Code Sparepart</th>
                     <th>Brand</th>
-                    <th>Harga</th>{{--price, harga untuk costumer--}}
+                    <th>Harga Jual</th>{{--price, harga untuk costumer--}}
                     <th>Harga Dasar</th>{{--actual cost, harga dasar barang/modal--}}
                     <th>Keuntungan</th>{{--forecast, laba dari harga jual barang--}}
                     <th>Unit</th>

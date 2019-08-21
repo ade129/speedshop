@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Services;
 use App\Models\Spareparts;
+use App\Models\ServicesDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,18 +59,71 @@ class ServicesController extends Controller
     public function save_page(Request $request)
     {
         $request->validate([
+            'date_services' => 'required',
             'description' => 'required',
+            'payment' => 'required',
+            'change' => 'required',
+            'grandtotal' => 'required',
             ]);
         
         $ServicesDetails = $request->idservicesdetails;
-        $saveServices->code = $this->get_code;
-        $saveServices->idservices = $request->nameservices;
-        $saveServices->namespareparts = $request->idspareparts;
-        $saveServices->dateservices = date('Y-m-d H:i:s');
+        $unit = $request->unit;
+        $spareparts = $request->idspareparts;
+        $totalharga = $request->totalharga;
+        $spare = count ($spareparts);
+        
+        for ($i=0; $i < $spare; $i++) {
+            if($spareparts[$i] == 0) {
+                return redirect()->back()->with('status_error','Spareparts Empty');
+            }elseif ($spareparts[$i] == 0) {
+                return redirect()->back()->with('status_error','Unit Empty');
+            }
+        }
+
+        $saveServices = new Services;
+        $saveServices->code = $this->get_code();
+        $saveServices->date_services = date('Y-m-d H:i:s');
         $saveServices->description = $request->description;
-        $saveServices->progress = 'p';
+        $saveServices->payments = $request->payment;
+        $saveServices->changes = $request->change;
+        $saveServices->grandtotal = $request->grandtotal;
         $saveServices->save();
-        return redirect('services')->with('Status Success','Service Created');
+
+            for ($i=0; $i < $spare ; $i++) {
+                $saveServicesDetails = new ServicesDetails;
+                $saveServicesDetails->idservices = $saveServices->idservices;
+                $saveServicesDetails->idspareparts = $spareparts[$i];
+                $saveServicesDetails->unit = $unit[$i];
+                $saveServicesDetails->totalharga = $totalharga[$i];
+                $saveServicesDetails->save();
+                return redirect('services')->with('status_success','Services updated');
+            }
+
+    }
+
+    public function update_page(Services $service)
+    {
+        $services = Services::with(['services_details' => function($sc){
+            $sc->with(['spareparts']);
+        }
+        ])->where('idservices',$service->idservices)
+        ->first();
+
+        $contents = [
+            'service' => $service,
+            'spareparts' => Spareparts::where('active', true)->get(),
+        ];
+
+        $pagecontent = view('services.create',$contents);
+
+            $pagemain = array(
+            'title' => 'Service',
+            'menu' => 'Service',
+            'submenu' => '',
+            'pagecontent' => $pagecontent,
+        );
+
+        return view('masterpage', $pagemain);
     }
 
     protected function get_code()
@@ -79,7 +133,6 @@ class ServicesController extends Controller
 
         $dataServices = Services::select('code')
             ->whereBetween('created_at',$date_between)
-            ->serviceBy('code',   'desc')
             ->first();
 
         if(is_null($dataServices)) {
@@ -92,4 +145,6 @@ class ServicesController extends Controller
 
         return 'PO-'.$date_ym.'-'.$nowcode;
     }
+
+    
 }
