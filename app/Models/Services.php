@@ -17,7 +17,7 @@ class Services extends Model
 
     public function services_details()
     {
-        return $this->hasMany('App\Models\ServicesDetails','idservicesdetails');
+        return $this->hasMany('App\Models\ServicesDetails','idservices');
     }
     
 }

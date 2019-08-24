@@ -17,6 +17,6 @@ class ServicesDetails extends Model
 
     public function spareparts()
     {
-        return $this->belongsTo('App\Models\Spareparts','idpsareparts');
+        return $this->belongsTo('App\Models\Spareparts','idspareparts');
     }
 }

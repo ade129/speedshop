@@ -19,13 +19,13 @@
                 <h3 class="box-title">Update</h3>
               </div>
               <div class="box-body">
-                    {{ Form::open(array('url' => 'services/update/'.$services->idservices, 'class' => 'form-horizontal')) }}
+                    {{ Form::open(array('url' => 'services/update/'.$service->idservices, 'class' => 'form-horizontal')) }}
                     <div class="form-group">
                       <div class="col-sm-2 control-label">
                         <label class="">Code</label>
                       </div>
                       <div class="col-sm-6">
-                        <input type="text" value="AUTO" class="form-control" readonly>
+                      <input type="text" value="{{$service->code}}" class="form-control" readonly>
                       </div>
                     </div>          
         
@@ -38,7 +38,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                            <input type="text" class="form-control datepicker pull-right" name="date_services" id="date" data-date-format='yyyy-mm-dd' value="{{date('Y-m-d',strtotime($services->date_services))}}" autocomplete="off">
+                            <input type="text" class="form-control datepicker pull-right" name="date_services" id="date" data-date-format='yyyy-mm-dd' value="{{$services->date_services}}" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                       </div>
                           <div class="col-sm-6">
                               <textarea name="description" rows="1"  class="form-control" required>
-                              {{$services->description}}</textarea>  
+                              {{$service->description}}</textarea>  
                               </textarea>
                           </div>
                     </div>
@@ -59,7 +59,7 @@
                           <label class="">Grand Total</label>
                       </div>
                           <div class="col-sm-6">
-                          <input type="number" name="grandtotal" id="grandtotal" value="{{$services->grandtotal}}" class="form-control" required>
+                          <input type="number" name="grandtotal" id="grandtotal" value="{{$service->grandtotal}}" class="form-control" required>
                           </div>
                     </div>
         
@@ -68,7 +68,7 @@
                           <label class="">Payment</label>
                       </div>  
                       <div class="col-sm-4">
-                      <input type="number" name="payment" id="payments" value="{{$services->payments}}"  class="form-control" required>
+                      <input type="number" name="payment" id="payments" value="{{$service->payments}}"  class="form-control" required>
                           </div>
                       </div>
                   
@@ -77,7 +77,7 @@
                             <label class="">Change</label>
                         </div>
                         <div class="col-sm-4">
-                               <input type="number" name="change" id="change" value="{{$services->change}}</textarea>"  onkeyup="change()" class="form-control" required>
+                               <input type="number" name="change" id="change" value="{{$service->change}}</textarea>"  onkeyup="change()" class="form-control" required>
                         </div>
                     </div>
                     
@@ -93,13 +93,15 @@
                         <div class="table-responsive">
                           <table class="table table-bordered " style="border: 2px solid #d2d6de !important;" id="table">
                             <tbody>
+                            @foreach ($service->services_details as $index => $sc)
                             <tr>
                                 <td style="border: 1px solid #d2d6de !important; text-align:center ">
-                                  <label>1</label>
+                                  <label>{{$index+1}}</label>
+                                  <input type="hidden" name="idservicesdetails[]" id="idservicesdetails_{{$index+1}}" value="{{$sc->idservicesdetails}}">
                                 </td>
                                 <td  style="border: 1px solid #d2d6de !important; ">
                                   <small><strong>Sparepart</strong></small>
-                                    <select class="form-control select1" name="idspareparts[]" id="idspareparts_1" onchange="passing_price(1,this.value);">
+                                    <select class="form-control select1" name="idspareparts[]" id="idspareparts_{{$index+1}}" onchange="passing_price(1,this.value);">
                                       <option>--select sparepart--</option>
                                       @php
                                           $param = [];
@@ -108,24 +110,27 @@
                                       @php
                                           $param[$spar->idspareparts] = $spar->price;
                                       @endphp
-                                       <option value="{{$spar->idspareparts}}">{{$spar->namespareparts}}</option> 
+                                       <option value="{{$spar->idspareparts}}" @if ($spar->idspareparts == $sc->idspareparts)
+                                        selected
+                                      @endif>{{$spar->namespareparts}}</option> 
                                       @endforeach
                                     </select>
                                 </td>
                                 <td  style="border: 1px solid #d2d6de !important; ">
                                   <small><strong>Quantity</strong></small>
-                                  <input type="number" name="unit[]" onkeyup="count_value(1)" value="0" class="form-control"  id="unit_1">
+                                  <input type="number" name="unit[]" onkeyup="count_value(1)" value="{{$services->unit}}" class="form-control"  id="unit_{{$index+1}}">
                                 </td>
                                 <td  style="border: 1px solid #d2d6de !important; ">
                                   <small><strong>Price</strong></small>
-                                  <input type="number" name="price[]" class="form-control"  id="price_1" onkeyup="count_value(1)" value="0" readonly>
+                                <input type="number" name="price[]" class="form-control"  id="price_{{$index+1}}" onkeyup="count_value(1)" value="{{$services->spareparts->price}}" readonly>
                                 </td>
                               </td>
                               <td  style="border: 1px solid #d2d6de !important; ">
                                 <small><strong>Total</strong></small>
-                                <input type="number" name="totalharga[]" class="form-control"  id="totalharga_1" value="0" onkeyup="total(1)">
+                                <input type="number" name="totalharga[]" class="form-control"  id="totalharga_{{$index+1}}" value="{{$services->totalharga}}" onkeyup="total(1)">
                               </td>
                               </tr>
+                              @endforeach
                             </tbody>
                           </table>
                         </div>
@@ -143,7 +148,7 @@
                       {{Form::close()}}
               </div>  
             </div>  
-            <input type="hidden" id="appendindex" value="2">     
+            <input type="hidden" id="appendindex" value="{{$services->services_details->count()+1}}">     
             </section>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
@@ -163,6 +168,7 @@
           $('#table').append('<tr>'
             +'<td style="border: 1px solid #d2d6de !important; text-align:center ">'
                 +'<label>'+ais+'</label><br>'
+                +'<input type="hidden" name="idservicesdetails[]" id="idservicesdetails" value="new">'
                 +'<a class="btn btn-xs del"><i class="fa fa=trash" aria-hidden="true"></i></a>'
                   +'</td style="border: 1px solid #d2d6de !important; ">'
                   +'<td style="border: 1px solid #d2d6de !important; ">'

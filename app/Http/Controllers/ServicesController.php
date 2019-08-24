@@ -101,20 +101,21 @@ class ServicesController extends Controller
 
     }
 
-    public function update_page(Services $service)
+    public function update_page(Services $service)//service memanggil dari Models
     {
         $services = Services::with(['services_details' => function($sc){
             $sc->with(['spareparts']);
         }
-        ])->where('idservices',$service->idservices)
-        ->first();
-
+        ])->where('idservices',$service->idservices)->first();
+        // $services = Services::where('idservices',$service->idservices)->first();
+        // dd($services);
+        // return $services;
         $contents = [
-            'service' => $service,
+            'service' => $services,
             'spareparts' => Spareparts::where('active', true)->get(),
         ];
 
-        $pagecontent = view('services.create',$contents);
+        $pagecontent = view('services.update',$contents);
 
             $pagemain = array(
             'title' => 'Service',
@@ -124,6 +125,52 @@ class ServicesController extends Controller
         );
 
         return view('masterpage', $pagemain);
+    }
+
+    public function update_save(Request $request, Services $service)
+    {
+        //return $request->all();
+        $request->validate[(
+            'date_services',
+            'payments'=>'required',
+        )];
+        
+        
+        $services_details = $request->idservicesdetails;
+        $unit = $request->unit;
+        $spareparts = $request->idspareparts;
+        $totalharga = $request->totalharga;
+        $spare = count ($spareparts);
+        
+        for ($i=0; $i < $spare; $i++) {
+            if($spareparts[$i] == 0) {
+                return redirect()->back()->with('status_error','Sparepart Empty');
+            }elseif ($spareparts[$i] == 0) {
+                return redirect()->back()->with('status_error','Quantity Empty');
+            }
+        }
+        $saveServices = Services::find($service->idservices);
+        $saveServices->date_services = date('Y-m-d H:i:s');
+        $saveServices->description = $request->description;
+        $saveServices->payments = $request->payment;
+        $saveServices->changes = $request->change;
+        $saveServices->grandtotal = $request->grandtotal;
+        $saveServices->save();
+
+            for ($i=0; $i < $spare ; $i++) {
+                if ($services_details[$i] == 'new'){
+                    $saveServicesDetails = new ServicesDetails;
+                    $saveServicesDetails->idservices = $saveServices->idservices;
+                }
+                else{
+                    $saveServicesDetails = ServicesDetails::find($services_details[$i]);
+                    }
+                $saveServicesDetails->idspareparts = $spareparts[$i];
+                $saveServicesDetails->unit = $unit[$i];
+                $saveServicesDetails->totalharga = $totalharga[$i];
+                $saveServicesDetails->save();
+                }
+                return redirect('services')->with('status_success','Service Updated');
     }
 
     protected function get_code()

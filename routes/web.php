@@ -40,7 +40,8 @@ Route::post('/spareparts/update/{spareparts}', 'SparepartsController@update_save
 Route::get('/services', 'ServicesController@index')->name('index');
 Route::get('/services/create-new', 'ServicesController@create_page')->name('create_page');
 Route::post('/services/create-new', 'ServicesController@save_page')->name('save_page');
-Route::get('/services/update/{services}', 'ServicesController@update_page')->name('edit');
+Route::get('/services/update/{service}', 'ServicesController@update_page')->name('edit');//service samakan dengan key yg ada pada controller
+Route::post('/services/update/{service}', 'ServicesController@update_save')->name('update');
 
 
 
