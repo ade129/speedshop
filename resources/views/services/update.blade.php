@@ -38,7 +38,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                            <input type="text" class="form-control datepicker pull-right" name="date_services" id="date" data-date-format='yyyy-mm-dd' value="{{$services->date_services}}" autocomplete="off">
+                            <input type="text" class="form-control datepicker pull-right" name="date_services" id="date" data-date-format='yyyy-mm-dd' value="{{$service->date_services}}" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                       {{Form::close()}}
               </div>  
             </div>  
-            <input type="hidden" id="appendindex" value="{{$services->services_details->count()+1}}">     
+            <input type="hidden" id="appendindex" value="{{$service->services_details->count()+1}}">     
             </section>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>

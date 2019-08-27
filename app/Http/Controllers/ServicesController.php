@@ -130,11 +130,10 @@ class ServicesController extends Controller
     public function update_save(Request $request, Services $service)
     {
         //return $request->all();
-        $request->validate[(
+        $request->validate([
             'date_services',
-            'payments'=>'required',
-        )];
-        
+            'payments' => 'required',
+        ]);
         
         $services_details = $request->idservicesdetails;
         $unit = $request->unit;
