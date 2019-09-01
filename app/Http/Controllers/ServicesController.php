@@ -19,7 +19,7 @@ class ServicesController extends Controller
     public function index()
     {
         $contents = [
-            'services'=> Services::all(),
+            'service'=> Services::all(),
         ];
         
         $pagecontent = view('services.index',$contents);
@@ -41,7 +41,7 @@ class ServicesController extends Controller
         // dd($spareparts);
         $contents = [
             'spareparts' => $spareparts,
-            'services' => Services::all(),
+            'service' => Services::all(),
         ];
 
         $pagecontent = view('services.create',$contents);
@@ -106,7 +106,8 @@ class ServicesController extends Controller
         $services = Services::with(['services_details' => function($sc){
             $sc->with(['spareparts']);
         }
-        ])->where('idservices',$service->idservices)->first();
+        ])->where('idservices',$service->idservices)
+        ->first();
         // $services = Services::where('idservices',$service->idservices)->first();
         // dd($services);
         // return $services;
@@ -170,7 +171,7 @@ class ServicesController extends Controller
                 $saveServicesDetails->save();
                 }
                 return redirect('services')->with('status_success','Service Updated');
-    }
+    }   
 
     protected function get_code()
     {

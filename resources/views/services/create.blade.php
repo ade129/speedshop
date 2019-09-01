@@ -77,7 +77,7 @@
                     <label class="">Change</label>
                 </div>
                 <div class="col-sm-4">
-                       <input type="number" name="change" id="change" value="0"  onkeyup="change()" class="form-control" required>
+                       <input type="number" name="change" id="changes" value="0"  onkeyup="change()" class="form-control" required>
                 </div>
             </div>
             
