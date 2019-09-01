@@ -103,6 +103,8 @@ class ServicesController extends Controller
 
     public function update_page(Services $service)//service memanggil dari Models
     {
+        // $spareparts = Spareparts::where('active',1)->get();
+
         $services = Services::with(['services_details' => function($sc){
             $sc->with(['spareparts']);
         }
@@ -111,6 +113,8 @@ class ServicesController extends Controller
         // $services = Services::where('idservices',$service->idservices)->first();
         // dd($services);
         // return $services;
+        // $test = Spareparts::where('active', true)->get();
+        // // return $test;
         $contents = [
             'service' => $services,
             'spareparts' => Spareparts::where('active', true)->get(),
@@ -130,10 +134,10 @@ class ServicesController extends Controller
 
     public function update_save(Request $request, Services $service)
     {
-        //return $request->all();
+        // return $request->all();
         $request->validate([
             'date_services',
-            'payments' => 'required',
+            'payment' => 'required',
         ]);
         
         $services_details = $request->idservicesdetails;
@@ -145,8 +149,10 @@ class ServicesController extends Controller
         for ($i=0; $i < $spare; $i++) {
             if($spareparts[$i] == 0) {
                 return redirect()->back()->with('status_error','Sparepart Empty');
-            }elseif ($spareparts[$i] == 0) {
+            }elseif ($unit[$i] == 0) {
                 return redirect()->back()->with('status_error','Quantity Empty');
+            }elseif ($totalharga[$i] == 0) {
+                return redirect()->back()->with('status_error','Payment Empty'); 
             }
         }
         $saveServices = Services::find($service->idservices);

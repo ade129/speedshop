@@ -110,28 +110,27 @@
                               @php
                                   $param[$spar->idspareparts] = $spar->price;
                               @endphp
-                               <option value="{{$spar->idspareparts}}">@if ($spar->idspareparts == $sc->idspareparts)
-                                    selected
-                                  @endif>{{$spar->namespareparts}}</option> 
+                               <option value="{{$spar->idspareparts}}" @if ($spar->idspareparts == $sc->spareparts->idspareparts) selected @endif>{{$spar->namespareparts}}</option> 
                               @endforeach
                             </select>
                         </td>
                         <td  style="border: 1px solid #d2d6de !important; ">
                           <small><strong>Quantity</strong></small>
-                          <input type="number" name="unit[]" onkeyup="count_value(1)" value="{{$service->unit}}" class="form-control"  id="unit_{{$index+1}}">
+                          <input type="number" name="unit[]" onkeyup="count_value(1)" value="{{$sc->unit}}" class="form-control"  id="unit_{{$index+1}}">
                         </td>
                         <td  style="border: 1px solid #d2d6de !important; ">
                           <small><strong>Price</strong></small>
-                        <input type="number" name="price[]" class="form-control"  id="price_{{$index+1}}" onkeyup="count_value(1)" value="{{$service->spareparts->price}}" readonly>
+                        <input type="number" name="price[]" class="form-control"  id="price_{{$index+1}}" onkeyup="count_value(1)" value="{{$sc->spareparts->price}}" readonly>
                         </td>
                       </td>
                       <td  style="border: 1px solid #d2d6de !important; ">
                         <small><strong>Total</strong></small>
-                        <input type="number" name="totalharga[]" class="form-control"  id="totalharga_{{$index+1}}" value="{{$service->totalharga}}" onkeyup="total(1)">
+                        <input type="number" name="totalharga[]" class="form-control"  id="totalharga_{{$index+1}}" value="{{$sc->totalharga}}" onkeyup="total(1)">
                       </td>
                       </tr>
+                      @endforeach
                     </tbody>
-                    @endforeach
+                    
                   </table>
                 </div>
               </div>
@@ -169,7 +168,8 @@ $('#addRow').on('click',function(){
     +'<td style="border: 1px solid #d2d6de !important; text-align:center ">'
         +'<label>'+ais+'</label><br>'
         +'<a class="btn btn-xs del"><i class="fa fa=trash" aria-hidden="true"></i></a>'
-          +'</td style="border: 1px solid #d2d6de !important; ">'
+        +'<input type="hidden" class="form-control" name="idservicesdetails[]" value="new">'
+          +'</td>'
           +'<td style="border: 1px solid #d2d6de !important; ">'
                +'<small><strong>Spareparts</strong></small>'
                +'<select class="form-control select1" onchange="passing_price('+ais+',this.value)" name="idspareparts[]" id="idspareparts_'+ais+'"> <option>--select spareparts--</option>'+idspareparts+
@@ -181,11 +181,11 @@ $('#addRow').on('click',function(){
           +'</td>'
           +'<td style="border: 1px solid #d2d6de !important; ">'
               +'<small><strong>Price</strong></small>'
-          +'<input class="form-control" name="price[]" id="price_'+ais+'"onkeyup="">'
+          +'<input class="form-control" name="price[]" id="price_'+ais+'" onkeyup="count_value('+ais+')" value="0">'
           +'</td>'
           +'<td style="border: 1px solid #d2d6de !important; ">'
                +'<small><strong>Grand Total</strong></small>'
-               +'<input type="number" name="totalharga[]" id="totalharga_'+ais+'" onkeyup="total('+ais+') ">'
+               +'<input type="number" name="totalharga[]" id="totalharga_'+ais+'" onkeyup="total('+ais+') " class="form-control">'
           +'</td>'
           +'</tr>'  
           
@@ -241,7 +241,7 @@ function change(){
   setTimeout(function(){
   
     var change = parseInt(payment) - parseInt(grandtotal);
-    $('#change').val(change); 
+    $('#changes').val(change); 
     }, 500);
 }
 

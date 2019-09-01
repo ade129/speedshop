@@ -32,7 +32,7 @@
           </tr>
           </thead>
           <tbody>
-            @foreach ($services as $number => $service)
+            @foreach ($service as $number => $service)
             <tr>
                 <td>{{$number+1}}</td>
                 <td>{{$service->code}}</td>
