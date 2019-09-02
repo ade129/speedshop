@@ -24,6 +24,7 @@
                     <th>Name Sparepart</th>
                     <th>Categories</th>
                     <th>Code Sparepart</th>
+                    <th>Image Sparepart</th>
                     <th>Brand</th>
                     <th>Harga Jual</th>{{--price, harga untuk costumer--}}
                     <th>Harga Dasar</th>{{--actual cost, harga dasar barang/modal--}}
@@ -40,6 +41,7 @@
                     <td>{{$spare->namespareparts}}</td>
                     <td>{{$spare->categories->name}}</td>
                     <td>{{$spare->codespareparts}}</td>
+                    <td>{{$spare->image}}</td>
                     <td>{{$spare->brand}}</td>
                     <td>{{$spare->price}}</td>
                     <td>{{$spare->actcost}}</td>

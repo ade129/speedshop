@@ -58,6 +58,13 @@
           </div>
 
           <div class="form-group">
+            <label class="col-sm-2 control-label">Image Sparepart</label>
+            <div class="col-sm-8">
+              <input type="file" class="form-control" placeholder="Image" name="image" required>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="col-sm-2 control-label">Harga Jual</label>
             <div class="col-sm-8">
               <input type="number" class="form-control" value="{{$spareparts->price}}" name="price" required>
