@@ -60,7 +60,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Image Sparepart</label>
             <div class="col-sm-8">
-              <input type="file" class="form-control" placeholder="Image" name="image" required>
+              <input type="file" class="form-control" placeholder="Image" name="images" required>
+              <small class="text-danger">size image max height:1000, width:1000 pixel</small>
             </div>
           </div>
 

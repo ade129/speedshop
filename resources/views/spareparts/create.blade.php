@@ -21,7 +21,7 @@
         <h4 class="box-tittle">Create New</h4>
         </div>
         <div class="box-body">
-          {{Form::open(array('url' => 'spareparts/create-new', 'class' => 'form-horizontal'))}}
+          {{Form::open(array('url' => 'spareparts/create-new', 'class' => 'form-horizontal', 'files' => 'true'))}}
           <div class="form-group">
             <label class="col-sm-2 control-label">Categories</label>
             <div class="col-sm-8">
@@ -58,7 +58,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Image Sparepart</label>
             <div class="col-sm-8">
-              <input type="file" class="form-control" placeholder="Image" name="image" required>
+              <input type="file" class="form-control" placeholder="Image" name="images" id="images" required>
+              <small class="text-danger">size image max height:1000, width:1000 pixel</small>
             </div>
           </div>
 
@@ -66,7 +67,7 @@
             <label class="col-sm-2 control-label">Harga</label>
             <div class="col-sm-8">
               <input type="text" class="form-control" placeholder="Harga" name="price" required>
-            </div>
+              </div>
           </div>
 
           <div class="form-group">

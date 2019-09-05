@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Models\Spareparts;
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+use File;
+use Illuminate\Support\Str;
+use Image;
 
 
 class SparepartsController extends Controller
@@ -61,6 +65,7 @@ class SparepartsController extends Controller
             'brand' => 'required',
             'unit' => 'required',
             'active' => '',
+            // 'images' => 'required|file|mimes:jpeg,jpg,png|max:1024'
         ]);
         $active = FALSE;
         if($request->has('active')) {
@@ -77,7 +82,15 @@ class SparepartsController extends Controller
         $saveSpareparts->forecast = $request ->forecast;
         $saveSpareparts->unit = $request->unit;
         $saveSpareparts->active = $active;
+        if ($request->hasFile('images')){
+            $image = $request->file('images');
+            $re_image = Str::random(20).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300, 300)->save( public_path('/spare_image/' . $re_image) );
+            $saveSpareparts->images = $re_image;
+        }
+        // return $request->all();
         $saveSpareparts->save();
+        
         return redirect('spareparts')->with('Status Success','Sparepart Created');
     }
 

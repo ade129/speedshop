@@ -18,7 +18,7 @@ class CreateSparepartsTable extends Migration
             $table->integer('idcategories');
             $table->string('namespareparts');
             $table->string('codespareparts');
-            $table->string('image');
+            $table->string('images');
             $table->string('brand');
             $table->string('price');//harga yang tampil di costumer
             $table->string('actcost');//harga dasar barang

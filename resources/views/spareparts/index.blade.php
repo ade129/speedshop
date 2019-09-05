@@ -41,7 +41,7 @@
                     <td>{{$spare->namespareparts}}</td>
                     <td>{{$spare->categories->name}}</td>
                     <td>{{$spare->codespareparts}}</td>
-                    <td>{{$spare->image}}</td>
+                    <td>{{$spare->images}}</td>
                     <td>{{$spare->brand}}</td>
                     <td>{{$spare->price}}</td>
                     <td>{{$spare->actcost}}</td>
