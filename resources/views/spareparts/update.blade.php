@@ -145,7 +145,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          {{-- <a href="{{url('spareparts')}}" class="btn btn-warning pull-right">Back</a> --}}
+          <a href="{{url('spareparts/update/{spareparts')}}" class="btn btn-warning pull-right">Back</a>
           <input type="submit" value="Save" class="btn btn-success">
           {{Form::close()}}
         </div>

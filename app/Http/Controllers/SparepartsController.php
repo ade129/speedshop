@@ -152,6 +152,19 @@ class SparepartsController extends Controller
     public function change_image(Request $request,Spareparts $spareparts)
     {
         
-        return $request->file('images');
+        // return $request->file('images');
+        $save_image = Spareparts::find($spareparts->idspareparts);
+        
+        if ($request->hasFile('images')) {
+            $image = $request->file('images');
+            $re_image = Str::random(20).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300, 300)->save( public_path('/spare_image/' . $re_image) );
+            $save_image->images = $re_image;
+        }
+        $save_image->save();
+        return redirect('spareparts/update/'.$spareparts->idspareparts)->with('status_success','Change  Image');
+        // $request->file('images');
     }
+
+
 }
