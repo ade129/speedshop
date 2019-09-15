@@ -165,6 +165,5 @@ class SparepartsController extends Controller
         return redirect('spareparts/update/'.$spareparts->idspareparts)->with('status_success','Change  Image');
         // $request->file('images');
     }
-
-
+    File::delete($filename);
 }
