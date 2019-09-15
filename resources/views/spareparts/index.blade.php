@@ -41,13 +41,20 @@
                     <td>{{$spare->namespareparts}}</td>
                     <td>{{$spare->categories->name}}</td>
                     <td>{{$spare->codespareparts}}</td>
-                    <td>{{$spare->images}}</td>
+                    <td>  
+                        @if (is_null($spare->images))
+                            <label> - </label>
+                          @else
+                            <img class="img-rounded zoom" src="{{env('CDN_URL')}}/spare_image/{{$spare->images}}" width="50">
+                          @endif
+                    </td>
                     <td>{{$spare->brand}}</td>
                     <td>{{$spare->price}}</td>
                     <td>{{$spare->actcost}}</td>
                     <td>{{$spare->forecast}}</td>
                     <td>{{$spare->unit}}</td> 
                     <td>
+
                         <center>
                             @if ($spare->active)
                             <span class="label label-success">Active</span>

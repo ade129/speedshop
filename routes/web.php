@@ -35,6 +35,7 @@ Route::get('/spareparts/create-new', 'SparepartsController@create_page')->name('
 Route::post('/spareparts/create-new', 'SparepartsController@save_page')->name('save_page');
 Route::get('/spareparts/update/{spareparts}', 'SparepartsController@update_page')->name('edit');
 Route::post('/spareparts/update/{spareparts}', 'SparepartsController@update_save')->name('update');
+Route::post('/spareparts/change-image/{spareparts}', 'SparepartsController@change_image')->name('update');
 
 //service
 Route::get('/services', 'ServicesController@index')->name('index');

@@ -59,9 +59,13 @@
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Image Sparepart</label>
-            <div class="col-sm-8">
-              <input type="file" class="form-control" placeholder="Image" name="images" required>
-              <small class="text-danger">size image max height:1000, width:1000 pixel</small>
+            <div class="col-sm-6">
+              {{-- <input type="file" class="form-control" placeholder="Image" name="images" required> --}}
+              <img class="img-rounded zoom" src="{{env('CDN_URL')}}/spare_image/{{$spareparts->images}}" width="50">
+              {{-- <small class="text-danger">size image max height:1000, width:1000 pixel</small> --}}
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#change-image">change</button>
             </div>
           </div>
 
@@ -119,5 +123,33 @@
     </section>
   </section>
   
-        
-        
+    
+<div id="change-image" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change Image</h4>
+        </div>
+        <div class="modal-body">
+            {{ Form::open(array('url' => 'spareparts/change-image/'.$spareparts->idspareparts, 'class' => 'form-horizontal','files' => 'true')) }}
+              <div class="row">
+                <div class="col-sm-10">
+                  <small>Upload Image</small>
+                  <input type="file" class="form-control" placeholder="Image" name="images" required>  
+                </div>
+              </div>
+           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          {{-- <a href="{{url('spareparts')}}" class="btn btn-warning pull-right">Back</a> --}}
+          <input type="submit" value="Save" class="btn btn-success">
+          {{Form::close()}}
+        </div>
+      </div>
+  
+    </div>
+  </div>

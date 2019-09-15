@@ -148,4 +148,10 @@ class SparepartsController extends Controller
               return redirect('spareparts')->with('status_success','Update Sparepart');
             
     }
+
+    public function change_image(Request $request,Spareparts $spareparts)
+    {
+        
+        return $request->file('images');
+    }
 }
