@@ -153,17 +153,19 @@ class SparepartsController extends Controller
     {
         
         // return $request->file('images');
-        $save_image = Spareparts::find($spareparts->idspareparts);
-        
+        $image_old =  public_path('/foods_images/' . $foods->images);
+        $save_image = Spareparts::find($spareparts->idspareparts);  
         if ($request->hasFile('images')) {
+            if (File::exists($image_old)) {
             $image = $request->file('images');
             $re_image = Str::random(20).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(300, 300)->save( public_path('/spare_image/' . $re_image) );
             $save_image->images = $re_image;
         }
-        $save_image->save();
+        File::delete($image_old);//menghapus gambar lama(gambar yang di update tidak tertimpa)
+        }        
+        $save_image->save();//meng update gambar baru 
         return redirect('spareparts/update/'.$spareparts->idspareparts)->with('status_success','Change  Image');
         // $request->file('images');
-    }
-    File::delete($filename);
+        }
 }
