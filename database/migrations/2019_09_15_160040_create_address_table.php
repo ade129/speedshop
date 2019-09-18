@@ -17,8 +17,8 @@ class CreateAddressTable extends Migration
             $table->increments('idaddress');
             $table->string('name');
             $table->string('alamat');
-            $table->mediumInteger('nomortelepon');
-            $table->mediumInteger('kodepos');
+            $table->string('nomortelepon');
+            $table->string('kodepos');
             $table->string('kelurahan');
             $table->string('kecamatan');
             $table->string('kota');

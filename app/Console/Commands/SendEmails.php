@@ -3,8 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Models\<Address>
-</Address>
+use Faker\Factory as Faker;
+use Models\Address;
+use DB;
 
 class SendEmails extends Command
 {
@@ -13,7 +14,7 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'create:address';
 
     /**
      * The console command description.
@@ -41,4 +42,25 @@ class SendEmails extends Command
     {
         //
     }
+    public function create()
+    {
+        $faker = Faker::create('App\Models\Address');
+        $count = 0;
+        for($i = 1 ; $i <= 100 ; $i++ ){
+            DB::table('address')->insert([
+                'name' => $faker->name,
+                'alamat' => $faker->address,
+                'nomortelepon' => $faker->tollFreePhoneNumber,
+                'kodepos' => $faker->tollFreePhoneNumber,
+                'kelurahan' => $faker->company,
+                'kecamatan' => $faker->company,
+                'kota' => $faker->company,
+            
+        	// 'created_at' => \Carbon\Carbon::now(),
+        	// 'Updated_at' => \Carbon\Carbon::now(),
+        ]);
+        echo $count++ .'<br>';
+        }
+    }
+
 }
