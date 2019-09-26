@@ -19,10 +19,16 @@ class SparepartsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        $categories = Categories::all();
+        $sparepart = Spareparts::with(['categories']);
+        if (strlen($request->categories) > 0) { 
+         $sparepart->where('idcategories',$request->categories); 
+        }
         $contents = [
-            'spareparts' => Spareparts::with(['categories'])->get(),
+            'spareparts' => $sparepart->get(),
+            'categories' => $categories,
         ];
 
         $pagecontent = view('spareparts.index',$contents);

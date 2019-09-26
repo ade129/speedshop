@@ -15,8 +15,25 @@
         <div class="box-tools pull-right">
             <a href="{{url('spareparts/create-new')}}" class="btn btn-box-tool" title="Create New"><i class="fa fa-plus"></i>Create New</a>
         </div>
-    </div>
-    <div class="box-body table-responsive">
+        <div class="row">
+                {{Form::open(array('url' => 'spareparts', 'method' => 'get' ,'class' => 'form-horizontal'))}}
+                    <div class="col-sm-2">
+                        <select class="form-control" id="select" name="categories">
+                                <option value="">--all categories--</option>
+                                @foreach ($categories as $ade)
+                                    <option value="{{$ade->idcategories}}" @if (Request::get('categories')==$ade->idcategories)
+                                    selected
+                                @endif>{{$ade->name}}</option> 
+                                @endforeach
+                                </select>          
+                    </div>
+                    <div class="col-sm-2">
+                            <input type="submit" value="Search" class="btn btn-primary">
+                    </div>
+                {{Form::close()}}
+            </div>
+        </div>
+       <div class="box-body table-responsive">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
